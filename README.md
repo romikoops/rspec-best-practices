@@ -1,11 +1,34 @@
 # Rspec Best Practices
 A collection of Rspec testing best practices
 
+## Table of Contents
+
+* [Introduction](#introduction)
+* [Describe your methods](#describe-your-methods)
+* [Keep your descriptions short](#keep-your-descriptions-short)
+* [Single expectation test](#single-expectation-test)
+* [Test valid, edge and invalid cases] (#test-valid-edge-and-invalid-cases)
+* [Use subject] (#use-subject)
+* [Use let] (#use-let)
+* [To mock or not to mock] (#to-mock-or-not-to-mock)
+* [Create data only when needed] (#create-data-only-when-needed)
+* [Use factories and not fixtures] (#use-factories-and-not-fixtures)
+* [Create a do_action method] (#create-a-do_action-method)
+* [Easy to read matcher] (#easy-to-read-matcher)
+* [Shared examples] (#shared-examples)
+* [Run a single test spec] (#run-a-single-test-spec)
+* [Other (relevant) suggestions] (#other-relevant-suggestions)
+* [Literature] (#literature)
+* [Libraries] (#libraries)
+* [Styles Guides] (#styles-guides)
+* [Fast Tests] (#fast-tests)
+* [Credits] (#credits)
+
 ## Introduction
 
   RSpec is a great tool in the behavior driven design process of writing human readable specifications that direct and validate the development of your application. What follows are some guidelines taken from the literature, online resources, and from our experience.
 
-### Describe your methods
+## Describe your methods
 
   Keep clear the methods you are describing using "." as prefix for class methods and "#" as prefix for instance methods.
 
@@ -34,7 +57,7 @@ A collection of Rspec testing best practices
       it { should respond_with 401 }
     end
 
-### Keep your descriptions short
+## Keep your descriptions short
 
   A spec description should never be longer than 40 characters. If this happens, it suggests you should split it using a context (some exceptions are allowed).
   
@@ -50,7 +73,7 @@ A collection of Rspec testing best practices
     when not valid
       it should respond with 422
       
-### Single expectation test
+## Single expectation test
 
   The "one expectation" tip is more broadly expressed as "each test should make only one assertion. This helps you on finding possible errors, going directly to the failing test, and to make your code readable.
   
@@ -66,7 +89,7 @@ A collection of Rspec testing best practices
     it { should respond_with_content_type(:json) }
     it { should assign_to(:resource) }
 
-### Test valid, edge and invalid cases
+## Test valid, edge and invalid cases
 
   Testing is a good practice, but if you do not test the edge cases, it will not be so useful. For example, consider the following action:
   
@@ -94,7 +117,7 @@ A collection of Rspec testing best practices
       end
     end
     
-### Use subject
+## Use subject
 
   When you have several tests related to the same "subject" you can use the subject{} method to DRY them up.
   
@@ -127,7 +150,7 @@ A collection of Rspec testing best practices
     subject { Hero.first }
     it { should be_brave }
 
-### Use let
+## Use let
 
   When you have to assign a variable to test, instead of using a before each block, use let. It will load only when the variable is firstly used in the test and get cached until that specific test is finished
   
@@ -154,7 +177,7 @@ A collection of Rspec testing best practices
 
   The value will be cached across multiple calls in the same example but not across examples. This means that if you change the cached variable you could not see changes. In that case use the reload method.
   
-### To mock or not to mock
+## To mock or not to mock
 
   Do not (over)use mocks and test real behavior when possible. Anyway, sometimes they can be really useful, for example if you want to get back a "not found resource" (one of the few cases I use it).
   
@@ -167,7 +190,7 @@ A collection of Rspec testing best practices
       it { should respond_with 404 }
     end
 
-### Create data only when needed
+## Create data only when needed
 
   If you have ever worked in a medium size project (but also in a small ones), test suites can be heavy to run. To solve this problem, is important to not load more data than needed. Also if you think you need dozens of records, usually you are wrong. As Dmytro says, add a parameter to the method, which will limit the number of records to return. In this case you can create 3 records, and pass 2 as a parameter.
 
@@ -179,7 +202,7 @@ A collection of Rspec testing best practices
       end 
     end
     
-### Use factories and not fixtures
+## Use factories and not fixtures
 
   This is an old topic, but it's still good to remember. Do not use fixtures which are difficult to control -- instead, use factories/blueprints. Use them to reduce the verbosity on creating new data.
   
@@ -195,7 +218,7 @@ A collection of Rspec testing best practices
 
   When defining a factory, start from a base valid one, which you can easily extend later on, into the code. If interested, the Rails Test prescriptions book face this problem in depth. It also discusses why you should not use fixtures in favour of factories.
   
-### Create a do_action method
+## Create a do_action method
 
   While testing rails controllers, I encountered a common pattern on calling the actions. The code I was getting through was something like this.
   
@@ -222,7 +245,7 @@ A collection of Rspec testing best practices
 
   Also if we wrote more code, we can easily have a default "do_action" method which you can use in all of your tests.
   
-### Easy to read matcher
+## Easy to read matcher
 
   This is taken directly from carbonfive article. Sometimes you feel the need of having readable matchers. Check out rspec matcher.
   
@@ -234,7 +257,7 @@ A collection of Rspec testing best practices
     expect { model.save! }.to raise_error(ActiveRecord::RecordNotFound)
     collection.should have(4).items
     
-### Shared examples
+## Shared examples
 
   Making tests is great and you get more confident day after day. But there will be a point where you will start to see code duplication coming up everywhere. RSpec offers shared examples to DRY out your test suite.
   
@@ -280,7 +303,7 @@ A collection of Rspec testing best practices
     
   Read more on Jeff Pollard article.
   
-### Run a single test spec
+## Run a single test spec
 
   Also if you can automatically run updated tests with solutions like guard, you could have the need to run a specific spec into your test suite. This is the secret line.
   
@@ -297,7 +320,7 @@ A collection of Rspec testing best practices
     end
 
 
-### Other (relevant) suggestions
+## Other (relevant) suggestions
 
 * When something in your application goes wrong, write a test that reproduces the error and then correct it. You will gain several hour of sleep and more serenity.
 * Start writing dirty tests, with long descriptions, without contexts, making multiple expectations for test, but then refactor and next time follow the right way.
@@ -306,7 +329,7 @@ A collection of Rspec testing best practices
 * Use Webmock to mock HTTP calls to remote service that could not be available all the time and that you want to personalize.
 * Use a good looking formatter to check if your test passed or failed. I use fuubar, which to me looks perfect.
 
-### Literature
+## Literature
 
 * The RSpec Book 
 * Rails Test Prescriptions 
@@ -318,7 +341,7 @@ A collection of Rspec testing best practices
 * Jeff Pollard best practices
 * How to get Rails 3 and RSpec 2 running specs fast
 
-### Libraries
+## Libraries
 
 * RSpec 2
 * Factory girl
@@ -328,18 +351,18 @@ A collection of Rspec testing best practices
 * Fuubar
 * Autotest, Watchr and Test Notifier
 
-### Styles Guides
+## Styles Guides
 
 * MongoID
 
-### Fast Tests
+## Fast Tests
 
 * Great presentation about model isolation
 
-### Credits
+## Credits
 
 The document has been started from Andrea Reginato for the Hack for School project. A special thanks to the Lelylan Team. This document is licensed under Creative Commons Attribution 3.0 Unported License.
 
-### Notes on the go
+## Notes on the go
 
 Controller testing. In my personal experience I was making controller test in the beginning. I read the books and I applied what I’ve read. After the first project I dropped them in favour of acceptance tests. I’m aware of the fact that acceptance tests are way slower and that in the long term they can be cumbersome, but my mix is to split the rails app in different services, use Spec
