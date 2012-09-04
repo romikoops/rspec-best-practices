@@ -172,7 +172,7 @@ it { should be_brave }
 
 ## Use let
 
-  When you have to assign a variable to test, instead of using a before each block, use let. It will load only when the variable is firstly used in the test and get cached until that specific test is finished
+  When you have to assign a variable to test, instead of using a before each block, [use let](http://stackoverflow.com/questions/5359558/when-to-use-rspec-let). It will load only when the variable is firstly used in the test and get cached until that specific test is finished
 
 ```ruby
 # wrong
@@ -230,7 +230,7 @@ end
     
 ## Use factories and not fixtures
 
-  This is an old topic, but it's still good to remember. Do not use fixtures which are difficult to control -- instead, use factories/blueprints. Use them to reduce the verbosity on creating new data.
+  This is an old topic, but it's still good to remember. Do not use fixtures which are difficult to control -- instead, use [factories/blueprints](http://rdoc.info/github/thoughtbot/factory_girl). Use them to reduce the verbosity on creating new data.
 
 ```ruby
 # wrong
@@ -244,7 +244,7 @@ user = User.create( :name => "Genoveffa",
 user = Factory.create(:user)
 ```
 
-  When defining a factory, start from a base valid one, which you can easily extend later on, into the code. If interested, the Rails Test prescriptions book face this problem in depth. It also discusses why you should not use fixtures in favour of factories.
+  When defining a [factory](http://rdoc.info/github/thoughtbot/factory_girl), start from a base valid one, which you can easily extend later on, into the code. If interested, the [Rails Test prescriptions](http://pragprog.com/titles/nrtest/rails-test-prescriptions) book face this problem in depth. It also discusses why you should not use fixtures in favour of factories.
   
 ## Create a do_action method
 
@@ -279,7 +279,7 @@ end
   
 ## Easy to read matcher
 
-  This is taken directly from carbonfive article. Sometimes you feel the need of having readable matchers. Check out rspec matcher.
+  This is taken directly from [carbonfive](http://blog.carbonfive.com/2010/10/21/rspec-best-practices/) article. Sometimes you feel the need of having readable matchers. Check out [rspec matcher](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).
   
 ```ruby
 # wrong
@@ -339,11 +339,11 @@ shared_examples_for "a secure resource" do
 end
 ```
     
-  Read more on Jeff Pollard article.
+  Read more on [Jeff Pollard](http://bitfluxx.com/2011/05/23/some-rspec-tips-and-best-practices.html) article.
   
 ## Run a single test spec
 
-  Also if you can automatically run updated tests with solutions like guard, you could have the need to run a specific spec into your test suite. This is the secret line.
+  Also if you can automatically run updated tests with solutions like [guard](https://github.com/guard/guard), you could have the need to run a specific spec into your test suite. This is the secret line.
   
 ```sh
 rake spec SPEC=spec/controllers/sessions_controller_spec.rb \
@@ -365,44 +365,44 @@ end
 
 * When something in your application goes wrong, write a test that reproduces the error and then correct it. You will gain several hour of sleep and more serenity.
 * Start writing dirty tests, with long descriptions, without contexts, making multiple expectations for test, but then refactor and next time follow the right way.
-* Use solutions like guard (using guard-rspec) to automatically run all of your test, without thinking about it. Combining it with growl, it will become one of your best friends. Examples of other solutions are test_notifier, watchr and autotest.
-* Use TimeCop to mock and test methods that relies on time.
-* Use Webmock to mock HTTP calls to remote service that could not be available all the time and that you want to personalize.
-* Use a good looking formatter to check if your test passed or failed. I use fuubar, which to me looks perfect.
+* Use solutions like [guard](https://github.com/guard/guard) (using [guard-rspec](https://github.com/guard/guard-rspec)) to automatically run all of your test, without thinking about it. Combining it with growl, it will become one of your best friends. Examples of other solutions are [test_notifier](https://github.com/fnando/test_notifier), [watchr](https://github.com/mynyml/watchr) and [autotest](http://ph7spot.com/musings/getting-started-with-autotest).
+* Use [TimeCop](https://github.com/jtrupiano/timecop) to mock and test methods that relies on time.
+* Use [Webmock](https://github.com/bblimke/webmock) to mock HTTP calls to remote service that could not be available all the time and that you want to personalize.
+* Use a good looking formatter to check if your test passed or failed. I use [fuubar](http://jeffkreeftmeijer.com/2010/fuubar-the-instafailing-rspec-progress-bar-formatter/), which to me looks perfect.
 
 ## Literature
 
-* The RSpec Book 
-* Rails Test Prescriptions 
-* Everyday rails spec
-* Eggs on bread best practices
-* Carbon Five best practices
-* Dmytro best practices
-* Andy Vanasse best practices
-* Jeff Pollard best practices
-* How to get Rails 3 and RSpec 2 running specs fast
+* [The RSpec Book](http://www.pragprog.com/titles/achbd/the-rspec-book)
+* [Rails Test Prescriptions](http://pragprog.com/titles/nrtest/rails-test-prescriptions)
+* [Everyday rails spec](http://leanpub.com/everydayrailsrspec)
+* [Eggs on bread best practices](http://eggsonbread.com/2010/03/28/my-rspec-best-practices-and-tips/)
+* [Carbon Five best practices](http://blog.carbonfive.com/2010/10/21/rspec-best-practices/)
+* [Dmytro best practices](http://kpumuk.info/ruby-on-rails/my-top-7-rspec-best-practices/)
+* [Andy Vanasse best practices](http://blog.andyvanasse.com/post/503615383/rspec-best-practices)
+* [Jeff Pollard best practices](http://bitfluxx.com/2011/05/23/some-rspec-tips-and-best-practices.html)
+* [How to get Rails 3 and RSpec 2 running specs fast](http://www.rubyinside.com/how-to-rails-3-and-rspec-2-4336.html)
 
 ## Libraries
 
-* RSpec 2
-* Factory girl
-* Shoulda
-* Timecop
-* Webmock
-* Fuubar
-* Autotest, Watchr and Test Notifier
+* [RSpec 2](http://relishapp.com/rspec/rspec-rails)
+* [Factory girl](http://rdoc.info/github/thoughtbot/factory_girl/)
+* [Shoulda Matchers](http://rubydoc.info/github/thoughtbot/shoulda-matchers/master/frames)
+* [Timecop](https://github.com/jtrupiano/timecop)
+* [Webmock](https://github.com/bblimke/webmock)
+* [Fuubar](http://jeffkreeftmeijer.com/2010/fuubar-the-instafailing-rspec-progress-bar-formatter/)
+* [Autotest](http://ph7spot.com/musings/getting-started-with-autotest), [Watchr](https://github.com/mynyml/watchr) and [Test Notifier](https://github.com/fnando/test_notifier)
 
 ## Styles Guides
 
-* MongoID
+* [MongoID](https://github.com/mongoid/mongoid/blob/master/spec/mongoid/attributes/readonly_spec.rb)
 
 ## Fast Tests
 
-* Great presentation about model isolation
+* [Great presentation about model isolation](https://speakerdeck.com/u/bkeepers/p/why-our-code-smells)
 
 ## Credits
 
-The document has been started from Andrea Reginato for the Hack for School project. A special thanks to the Lelylan Team. This document is licensed under Creative Commons Attribution 3.0 Unported License.
+The document has been started from [Andrea Reginato](http://www.twitter.com/andreareginato) for the [Hack for School](http://hackforschool.tumblr.com/) project. A special thanks to the [Lelylan](http://lelylan.com) team. This document is licensed under [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/).
 
 ## Notes on the go
 
